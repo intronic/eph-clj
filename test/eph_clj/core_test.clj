@@ -21,12 +21,6 @@
     (is (= {:B 100, :C 30}
            (second (first (first (:map (read-json s1)))))))))
 
-(deftest test-make-graph
-  (testing "making graph"
-    (is (= {:B {:F 300} :F {:B 300}}
-           (make-graph {:map [{:B {:F 300}}]})))
-    (is (= m1 (make-graph {:map [{:A {:B 100, :C 30}} {:B {:F 300}}]})))))
-
 (deftest test-read-json-graph
   (testing "making graph from json"
     (is (= m1 (read-json-graph s1)))))
