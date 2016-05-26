@@ -14,18 +14,12 @@ Graph structure is a map of vertices to a map of adjacent vertices and distances
                                            (assoc-in [e2 e1] d))) g
                                      edge-dist-map))) {} edge-vec))))
 
-(defn graph-nodes
-  "Return set of all nodes in the graph g."
-  [g]
-  (set (keys g)))
+(defn distance
+  "Return distance from a to b in graph g or nil if no direct path."
+  [g a b]
+  (get-in g [a b]))
 
-(defn graph-child-map
-  "Return map of child nodes and distances for node a in the graph g."
+(defn children
+  "Return all children of node a in the graph g. "
   [g a]
-  (get g a))
-
-(defn graph-child-nodes
-  "Return set of all child nodes of node a in the graph g.
-a could be the node key, or the child-dist map as returned from graph-child-map."
-  [g a]
-  (set (keys (if (map? a) a (get g a)))))
+  (keys (g a)))

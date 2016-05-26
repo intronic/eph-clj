@@ -32,7 +32,7 @@ then the result will be:
 ```
 or, better:
 ```json
-{ "distance":360, "route": ["?","?",...,"?"]}
+{ "distance":360, "route": [\"A\",\"C\",\"D\",\"E\",\"F\"]}
 ```
 
 ### Addition and Deletion of Roads
