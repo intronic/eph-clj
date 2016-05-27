@@ -2,6 +2,11 @@
 
 A Clojure library to find the shortest routes between nodes in a graph of nodes connected by roads of different distances.
 
+#### How to Run This
+
+* If you have ```lein``` installed, you can clone this repo, then run ```lein run``` from the project directory.
+* Otherwise, contact me and I can send you a ```jar``` file instead.
+
 ## Usage
 
 ### Initialisation
