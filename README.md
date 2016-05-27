@@ -1,11 +1,12 @@
 # eph-clj
 
-A Clojure library to find the shortest paths between nodes of an undirected graph.
+A Clojure library to find the shortest routes between nodes in a graph of nodes connected by roads of different distances.
 
 ## Usage
 
 ### Initialisation
-Given an undirected graph (an edge from A->B implies an edge B->A) in the initialisation format:
+
+Create a graph (a road from A->B implies a return path B->A) using the JSON format:
 ```json
 {
     "map": [
@@ -19,8 +20,14 @@ Given an undirected graph (an edge from A->B implies an edge B->A) in the initia
     ]
 }
 ```
+Alternatively, add the map directly as JSON map of nodes to a map of connected nodes and distances:
+
+```json
+{"A": {"B":80, "I":10}, "I": {"F":20}}
+```
 
 ### Shortest Path Command
+
 With the (JSON data) command for the above map:
 ```json
 { "start":"A", "end":"F" }
@@ -28,27 +35,31 @@ With the (JSON data) command for the above map:
 then the result will be:
 
 ```json
-{ "distance":360 }
-```
-or, better:
-```json
-{ "distance":360, "route": [\"A\",\"C\",\"D\",\"E\",\"F\"]}
+{"distance":360,"route":["A","C","D","E","F"]}
 ```
 
-### Addition and Deletion of Roads
-Update: the following command will update the path from A->B to be 80:
+### Add/Update Roads
+
+Use either of the initialisation formats above to add or update nodes.
+The following two commands are equivalent and will update the path from A->B to be 80:
+
 ```json
 { "A": {"B":80} }
+{"map": [{ "A": {"B":80} }]}
 ```
-Using the following as input, add a path from A<->I (70) and A<->J (150):
+The following two commands are equivalent and will add paths from A<->I (70) and A<->J (150) and from I<->J (800):
 ```json
-{ "map": [{ "A": {"I":70, "J":150} }]}
+{"A": {"I":70, "J":150}, "I": {"J": 800}}
+{ "map": [{"A": {"I":70, "J":150}} {"I": {"J": 800}}]}
 ```
 
-## Questions/Assumptions
+### Clearing / Resetting the Graph
 
-* Road and highway terms are used interchangeably
-* All roads are bi-directional (no one-way)
+To clear or reset the graph, enter ```"clear"```.
+
+### Quitting
+
+To quit, enter ```"quit"``` or hit ```^C``` (ctrl-C).
 
 ## License
 

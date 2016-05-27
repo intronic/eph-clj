@@ -9,7 +9,11 @@
   (testing "making graph"
     (is (= {:B {:F 300} :F {:B 300}}
            (make-graph {:map [{:B {:F 300}}]})))
-    (is (= g1 (make-graph {:map [{:A {:B 100, :C 30}} {:B {:F 300}}]})))))
+    (is (= g1 (make-graph {:map [{:A {:B 100, :C 30}} {:B {:F 300}}]})))
+    (is (= g1 (make-graph {:map (seq [{:A {:B 100, :C 30}} {:B {:F 300}}])})))
+    (is (= {} (make-graph {:map [{}]})))
+    (is (thrown? Exception (make-graph {:map nil})))
+    (is (= {} (make-graph {:map []})))))
 
 (deftest test-graph-nodes
   (testing "graph distances "

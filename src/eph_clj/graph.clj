@@ -5,14 +5,16 @@
 Graph structure is a map of vertices to a map of adjacent vertices and distances,
   eg. {:map [{:A {:B 10}}]} -> {:A {:B 10}, :B {:A 10}}."
   [g]
-  (let [{edge-vec :map} g]
-    (and (vector? edge-vec)
-         (reduce (fn [g m] (let [[e1 edge-dist-map] (first m)]
-                             (reduce (fn [g' [e2 d]]
-                                       (-> g'
-                                           (assoc-in [e1 e2] d)
-                                           (assoc-in [e2 e1] d))) g
-                                     edge-dist-map))) {} edge-vec))))
+  (let [{edges :map} g]
+    (if (and (sequential? edges) (every? map? edges))
+      (reduce (fn [g m] (let [[e1 edge-dist-map] (first m)]
+                          (reduce (fn [g' [e2 d]]
+                                    (-> g'
+                                        (assoc-in [e1 e2] d)
+                                        (assoc-in [e2 e1] d))) g
+                                        edge-dist-map)))
+              {} edges)
+      (throw (Exception. "Invalid format for {:map [{...} ...]}")))))
 
 (defn distance
   "Return distance from a to b in graph g or nil if no direct path."
